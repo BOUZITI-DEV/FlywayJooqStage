@@ -5,6 +5,9 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class TicketDTO {
     private Long id;
     private String libelle;

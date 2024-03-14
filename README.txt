@@ -27,7 +27,7 @@ Steps to create a springboot project with all the necessary dependencies
 		spring.jpa.hibernate.ddl-auto = update
 		
 		spring.flyway.enabled=true
-		spring.flyway.locations=classpath:db/migration
+		spring.flyway.locations=classpath:db/migration/script, classpath:db/migration/data
 		spring.flyway.baseline-on-migrate=true
 		
 		springdoc.api-docs.enabled=true
