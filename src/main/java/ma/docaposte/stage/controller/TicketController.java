@@ -1,6 +1,5 @@
 package ma.docaposte.stage.controller;
 
-import ma.docaposte.stage.dto.DevDTO;
 import ma.docaposte.stage.dto.TicketDTO;
 import ma.docaposte.stage.repository.impl.TicketJooqRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;

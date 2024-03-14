@@ -6,9 +6,9 @@ import ma.docaposte.stage.dto.DevDTO;
 import ma.docaposte.stage.dto.TicketDTO;
 import ma.docaposte.stage.repository.TicketJooqRepository;
 import org.jooq.DSLContext;
+import org.jooq.Record;
 import org.jooq.Result;
 import org.springframework.stereotype.Repository;
-import org.jooq.Record;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +47,7 @@ public class TicketJooqRepositoryImpl implements TicketJooqRepository {
 
     @Override
     public TicketDTO findById(Long id) {
-        Record record = (Record) dslContext.select()
+        Record record = dslContext.select()
                 .from(Ticket.TICKET)
                 .join(Dev.DEV).on(Ticket.TICKET.DEV.eq(Dev.DEV.ID))
                 .where(Ticket.TICKET.ID.eq(Math.toIntExact(id)))
@@ -60,14 +60,11 @@ public class TicketJooqRepositoryImpl implements TicketJooqRepository {
                     .prenom(record.get(Dev.DEV.PRENOM))
                     .build();
 
-            TicketDTO ticketDTO = TicketDTO.builder()
+            return TicketDTO.builder()
                     .id(Long.valueOf(record.get(Ticket.TICKET.ID)))
                     .libelle(record.get(Ticket.TICKET.LIBELLE))
                     .devDTO(devDTO)
                     .build();
-
-            System.out.println(ticketDTO);
-            return ticketDTO;
         }
         return null;
     }
@@ -88,18 +85,14 @@ public class TicketJooqRepositoryImpl implements TicketJooqRepository {
                     .prenom(record.get(Dev.DEV.PRENOM))
                     .build();
 
-            TicketDTO ticketDTO = TicketDTO.builder()
+            ticketDTOs.add(TicketDTO.builder()
                     .id(Long.valueOf(record.get(Ticket.TICKET.ID)))
-                    .libelle(record.get(Ticket.TICKET.LIBELLE)) // Assuming you have a 'libelle' field
+                    .libelle(record.get(Ticket.TICKET.LIBELLE))
                     .devDTO(devDTO)
-                    .build();
-
-            ticketDTOs.add(ticketDTO);
+                    .build());
         }
-
         return ticketDTOs;
     }
-
 
     @Override
     public Long count() {
