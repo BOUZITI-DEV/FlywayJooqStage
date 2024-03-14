@@ -1,0 +1,2 @@
+ALTER TABLE ticket
+ADD COLUMN libelle VARCHAR(100);
