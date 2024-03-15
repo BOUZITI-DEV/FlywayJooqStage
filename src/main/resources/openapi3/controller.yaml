@@ -1,0 +1,102 @@
+openapi: 3.0.0
+info:
+  title: Example API
+  version: "1.0"
+paths:
+  /api/devs/save:
+    post:
+      summary: Create a new developer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DevDTO'
+      responses:
+        '201':
+          description: Developer created successfully
+
+  /api/devs/update:
+    put:
+      summary: Update an existing developer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DevDTO'
+      responses:
+        '200':
+          description: Developer updated successfully
+
+  /api/devs/{id}:
+    get:
+      summary: Get a developer by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DevDTO'
+        '404':
+          description: Developer not found
+
+    delete:
+      summary: Delete a developer by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Developer deleted successfully
+        '404':
+          description: Developer not found
+
+  /api/devs/findAll:
+    get:
+      summary: Get all developers
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DevDTO'
+
+  /api/devs/count:
+    get:
+      summary: Count all developers
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: integer
+
+  # Repeat similar structure for TicketController paths under /api/tickets/...
+
+components:
+  schemas:
+    DevDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        nom:
+          type: string
+        prenom:
+          type: string
+    # Define other DTOs here, such as TicketDTO, as used in your API
